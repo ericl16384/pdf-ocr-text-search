@@ -1,13 +1,11 @@
 import json
-
 import sys
 
-assert len(sys.argv) == 2
-INDEX_FILE = sys.argv[1]
 
-def search_problem(query):
+
+def search_problem(index_file, query):
     try:
-        with open(INDEX_FILE, 'r', encoding='utf-8') as f:
+        with open(index_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
     except FileNotFoundError:
         print("Index file not found. Please run ocr_index_pdf.py first.")
@@ -26,5 +24,8 @@ def search_problem(query):
         print("\nNo exact match found. Try a shorter, unique snippet of text.")
 
 if __name__ == "__main__":
-    snippet = input("Enter the text snippet to search for: ")
-    search_problem(snippet)
+    assert len(sys.argv) == 3
+
+    index_file = sys.argv[1]
+    snippet = sys.argv[1]
+    search_problem(index_file, snippet)
